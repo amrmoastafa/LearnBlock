@@ -3,16 +3,13 @@
 ################################################################################
 ## Form generated from reading UI file 'Learnblock.ui'
 ##
-## Created by: Qt User Interface Compiler version 5.15.0
+## Created by: Qt User Interface Compiler version 5.15.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide2.QtCore import (QCoreApplication, QDate, QDateTime, QMetaObject,
-    QObject, QPoint, QRect, QSize, QTime, QUrl, Qt)
-from PySide2.QtGui import (QBrush, QColor, QConicalGradient, QCursor, QFont,
-    QFontDatabase, QIcon, QKeySequence, QLinearGradient, QPalette, QPainter,
-    QPixmap, QRadialGradient)
+from PySide2.QtCore import *
+from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
 from learnbot_dsl.learnbotCode.CodeEdit import CodeEdit
@@ -305,26 +302,42 @@ class Ui_MainWindow(object):
         self.verticalLayout_5.setObjectName(u"verticalLayout_5")
         self.cameraFrame = QFrame(self.program_text)
         self.cameraFrame.setObjectName(u"cameraFrame")
+        sizePolicy1 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.cameraFrame.sizePolicy().hasHeightForWidth())
+        self.cameraFrame.setSizePolicy(sizePolicy1)
         self.cameraFrame.setMinimumSize(QSize(320, 240))
         self.cameraFrame.setMaximumSize(QSize(320, 240))
         self.cameraFrame.setFrameShape(QFrame.StyledPanel)
         self.cameraFrame.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_3 = QHBoxLayout(self.cameraFrame)
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
-        self.cameragraphicsView = QGraphicsView(self.cameraFrame)
-        self.cameragraphicsView.setObjectName(u"cameragraphicsView")
-        self.cameragraphicsView.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        self.cameragraphicsView.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.widget = QWidget(self.cameraFrame)
+        self.widget.setObjectName(u"widget")
+        sizePolicy1.setHeightForWidth(self.widget.sizePolicy().hasHeightForWidth())
+        self.widget.setSizePolicy(sizePolicy1)
+        self.availableFunctionslineEdit = QLineEdit(self.widget)
+        self.availableFunctionslineEdit.setObjectName(u"availableFunctionslineEdit")
+        self.availableFunctionslineEdit.setGeometry(QRect(10, 10, 181, 25))
+        sizePolicy2 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.availableFunctionslineEdit.sizePolicy().hasHeightForWidth())
+        self.availableFunctionslineEdit.setSizePolicy(sizePolicy2)
+        self.searchAvailableFunctionspushButton = QPushButton(self.widget)
+        self.searchAvailableFunctionspushButton.setObjectName(u"searchAvailableFunctionspushButton")
+        self.searchAvailableFunctionspushButton.setGeometry(QRect(200, 10, 89, 25))
+        sizePolicy2.setHeightForWidth(self.searchAvailableFunctionspushButton.sizePolicy().hasHeightForWidth())
+        self.searchAvailableFunctionspushButton.setSizePolicy(sizePolicy2)
+        self.functionstableWidget = QTableWidget(self.widget)
+        self.functionstableWidget.setObjectName(u"functionstableWidget")
+        self.functionstableWidget.setGeometry(QRect(10, 40, 281, 171))
 
-        self.horizontalLayout_3.addWidget(self.cameragraphicsView)
+        self.horizontalLayout_3.addWidget(self.widget)
 
 
         self.verticalLayout_5.addWidget(self.cameraFrame)
-
-        self.connectCameraRobotpushButton = QPushButton(self.program_text)
-        self.connectCameraRobotpushButton.setObjectName(u"connectCameraRobotpushButton")
-
-        self.verticalLayout_5.addWidget(self.connectCameraRobotpushButton)
 
         self.gridLayout_2 = QGridLayout()
         self.gridLayout_2.setObjectName(u"gridLayout_2")
@@ -383,11 +396,11 @@ class Ui_MainWindow(object):
         self.gridLayout.setObjectName(u"gridLayout")
         self.splitter = QSplitter(self.program_visual)
         self.splitter.setObjectName(u"splitter")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.splitter.sizePolicy().hasHeightForWidth())
-        self.splitter.setSizePolicy(sizePolicy1)
+        sizePolicy3 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+        sizePolicy3.setHorizontalStretch(0)
+        sizePolicy3.setVerticalStretch(0)
+        sizePolicy3.setHeightForWidth(self.splitter.sizePolicy().hasHeightForWidth())
+        self.splitter.setSizePolicy(sizePolicy3)
         self.splitter.setOrientation(Qt.Horizontal)
         self.splitter.setOpaqueResize(True)
         self.splitter.setHandleWidth(6)
@@ -395,8 +408,8 @@ class Ui_MainWindow(object):
         self.functions = QTabWidget(self.splitter)
         self.functions.setObjectName(u"functions")
         self.functions.setEnabled(True)
-        sizePolicy1.setHeightForWidth(self.functions.sizePolicy().hasHeightForWidth())
-        self.functions.setSizePolicy(sizePolicy1)
+        sizePolicy3.setHeightForWidth(self.functions.sizePolicy().hasHeightForWidth())
+        self.functions.setSizePolicy(sizePolicy3)
         self.functions.setMaximumSize(QSize(16777215, 16777215))
         self.functions.setBaseSize(QSize(229, 0))
         font1 = QFont()
@@ -656,8 +669,8 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
 
         self.language.setCurrentIndex(1)
-        self.Tabwi.setCurrentIndex(2)
-        self.functions.setCurrentIndex(1)
+        self.Tabwi.setCurrentIndex(1)
+        self.functions.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -815,7 +828,10 @@ class Ui_MainWindow(object):
         self.stopPythonPushButton.setText(QCoreApplication.translate("MainWindow", u"Stop", None))
         self.Tabwi.setTabText(self.Tabwi.indexOf(self.tab), QCoreApplication.translate("MainWindow", u"Python", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"Program", None))
-        self.connectCameraRobotpushButton.setText(QCoreApplication.translate("MainWindow", u"Connect Camera Robot", None))
+#if QT_CONFIG(tooltip)
+        self.availableFunctionslineEdit.setToolTip(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><br/></p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+        self.searchAvailableFunctionspushButton.setText(QCoreApplication.translate("MainWindow", u"Search", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"px", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"Size Leter", None))
         self.bt2pythonpushButton.setText(QCoreApplication.translate("MainWindow", u"Block-Text to Python", None))

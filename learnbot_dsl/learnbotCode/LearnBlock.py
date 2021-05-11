@@ -255,6 +255,7 @@ class LearnBlock(QtWidgets.QMainWindow):
         self.ui.actionLoad_Sets_of_Blocks.triggered.connect(self.loadSetsOfBlocks)
         self.ui.actionAdd_Set_of_Blocks.triggered.connect(self.addSetOfBlocks)
         self.ui.actionSelect_Visible_Blocks.triggered.connect(self.selectVisibleBlocks)
+        
         self.ui.actionSave_Visible_Blocks.triggered.connect(self.saveVisibleBlocks)
         self.ui.actionDownload_xmls.triggered.connect(self.downloadXMLs)
         self.ui.actionDownload_examples.triggered.connect(self.downloadExamples)
@@ -262,7 +263,8 @@ class LearnBlock(QtWidgets.QMainWindow):
         self.ui.actionExit.triggered.connect(self.close)
         self.ui.actionChange_Libraries_path.triggered.connect(self.changeLibraryPath)
         self.ui.actionChange_Workspace.triggered.connect(self.changeWorkSpace)
-        self.ui.connectCameraRobotpushButton.clicked.connect(self.connectCameraRobot)
+        # self.ui.connectCameraRobotpushButton.clicked.connect(self.connectCameraRobot)
+        self.ui.searchAvailableFunctionspushButton.clicked.connect(self.setOfAvailableFunctions)
         self.ui.spinBoxLeterSize.valueChanged.connect(self.updateTextCodeStyle)
         self.ui.textCode.textChanged.connect(self.updateTextCodeStyle)
         self.ui.actionDark.changed.connect(self.enbleDarkTheme)
@@ -360,9 +362,9 @@ class LearnBlock(QtWidgets.QMainWindow):
         self.activeEvents(False)
         self.pmlast = None
         self.cameraScene = QtWidgets.QGraphicsScene()
-        self.ui.cameragraphicsView.setScene(self.cameraScene)
+        # self.ui.cameragraphicsView.setScene(self.cameraScene)
 
-        self.connectCameraRobot()
+        # self.connectCameraRobot()
 
         self.client = None
         self.isOpen = True
@@ -756,22 +758,22 @@ class LearnBlock(QtWidgets.QMainWindow):
             os.remove(os.path.join(tempXMLs, f))
         os.removedirs(tempXMLs)
 
-    def connectCameraRobot(self):
-        if self.checkConnectionToBot():
-            try:
-                # self.client = paho.mqtt.client.Client(client_id='pc', clean_session=False)
-                self.client = paho.mqtt.client.Client()
-                self.client.on_message = on_message
-                self.client.connect(host='192.168.16.1', port=50000)
-                self.client.subscribe(topic='camara', qos=2)
-                self.client.loop_start()
-                self.count = 0
-                self.start = time.time()
-                print("Connect Camera Successfully")
-            except Exception as e:
-                print("Error connect Streamer\n", e)
-        else:
-            self.client = None
+    # def connectCameraRobot(self):
+    #     if self.checkConnectionToBot():
+    #         try:
+    #             # self.client = paho.mqtt.client.Client(client_id='pc', clean_session=False)
+    #             self.client = paho.mqtt.client.Client()
+    #             self.client.on_message = on_message
+    #             self.client.connect(host='192.168.16.1', port=50000)
+    #             self.client.subscribe(topic='camara', qos=2)
+    #             self.client.loop_start()
+    #             self.count = 0
+    #             self.start = time.time()
+    #             print("Connect Camera Successfully")
+    #         except Exception as e:
+    #             print("Error connect Streamer\n", e)
+    #     else:
+    #         self.client = None
 
     def readCamera(self, image):
         try:
@@ -1172,6 +1174,35 @@ class LearnBlock(QtWidgets.QMainWindow):
                 self.visibleBlockLists[cat] = newList
         self.dialogSelectBlocks = guiSelectBlocks(self.visibleBlockLists, self.setVisibleBlocks)
         self.dialogSelectBlocks.show()
+
+    def setOfAvailableFunctions(self):
+        print("########### Printing #############")
+        list_of_functions = os.listdir(os.path.join(os.getenv('HOME'),"Desktop","LearnBlock","learnbot_dsl", "functions","motor","base"))
+        new_list = []
+        for fun in list_of_functions:
+            if fun.endswith(".py"):
+                if "init" in fun:
+                    list_of_functions.remove(fun)
+                else:
+                    new_list.append(fun)
+        list_of_functions.clear()
+        list_of_functions = new_list
+        print(list_of_functions)
+        print("########### Finished #############")
+        
+        text = self.ui.availableFunctionslineEdit.text()
+        currentable = self.ui.functionstableWidget
+        currentable.clear()
+        currentable.setRowCount(len(list_of_functions))
+        currentable.setColumnCount(1)
+        row = 0
+        if len(text) is not 0:
+            for fun in list_of_functions:
+                # if fun.find(text):
+                currentable.setItem(row,0,QtWidgets.QTableWidgetItem(fun))
+                row = row + 1
+                
+    
 
     def setVisibleBlocks(self):
         keys = list(self.visibleBlockLists.keys())
